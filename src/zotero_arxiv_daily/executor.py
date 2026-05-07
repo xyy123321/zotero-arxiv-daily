@@ -87,5 +87,7 @@ class Executor:
             return
         logger.info("Sending email...")
         email_content = render_email(reranked_papers)
+        reranked_papers = reranked_papers[:self.config.executor.max_paper_num]
+        logger.info(f"max_paper_num={self.config.executor.max_paper_num}, 实际推送={len(reranked_papers)}")
         send_email(self.config, email_content)
         logger.info("Email sent successfully")
